@@ -38,7 +38,6 @@ $form.addEventListener('submit', () => {
     id: data.nextId
   };
   data.entries.push(newEntries);
-  renderEntry(newEntries);
   data.nextId++;
   $pageContainer.classList.add('hidden');
 
@@ -52,24 +51,31 @@ $days.addEventListener('click', function (event) {
     // for (let i = 0; i < $daysOfWeek.length; i++) {
     if (event.target.getAttribute('data-view') === 'sun-view') {
       $scheduleText.textContent = 'Scheduled Events for Sunday';
+      removeChildren($tBody);
       displayDayEntries('sunday');
     } else if (event.target.getAttribute('data-view') === 'mon-view') {
       $scheduleText.textContent = 'Scheduled Events for Monday';
+      removeChildren($tBody);
       displayDayEntries('monday');
     } else if (event.target.getAttribute('data-view') === 'tue-view') {
       $scheduleText.textContent = 'Scheduled Events for Tuesday';
+      removeChildren($tBody);
       displayDayEntries('tuesday');
     } else if (event.target.getAttribute('data-view') === 'wed-view') {
       $scheduleText.textContent = 'Scheduled Events for Wednesday';
+      removeChildren($tBody);
       displayDayEntries('wednesday');
     } else if (event.target.getAttribute('data-view') === 'thu-view') {
       $scheduleText.textContent = 'Scheduled Events for Thursday';
+      removeChildren($tBody);
       displayDayEntries('thursday');
     } else if (event.target.getAttribute('data-view') === 'fri-view') {
       $scheduleText.textContent = 'Scheduled Events for Friday';
+      removeChildren($tBody);
       displayDayEntries('friday');
     } else if (event.target.getAttribute('data-view') === 'sat-view') {
       $scheduleText.textContent = 'Scheduled Events for Saturday';
+      removeChildren($tBody);
       displayDayEntries('saturday');
     }
     // }
@@ -77,6 +83,7 @@ $days.addEventListener('click', function (event) {
 });
 
 const $tBody = document.querySelector('tbody');
+// const $tChild = $tBody.children;
 
 function renderEntry(entry) {
   const $tr = document.createElement('tr');
@@ -97,8 +104,6 @@ function displayDayEntries(day) {
   for (let i = 0; i < data.entries.length; i++) {
     if (data.entries[i].day === day) {
       renderEntry(data.entries[i]);
-    } else {
-
     }
   }
 }
@@ -108,3 +113,9 @@ document.addEventListener('DOMContentLoaded', () => {
     renderEntry(data.entries[i]);
   }
 });
+
+function removeChildren(parent) {
+  while (parent.firstChild) {
+    parent.removeChild(parent.firstChild);
+  }
+}
