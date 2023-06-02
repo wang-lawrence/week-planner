@@ -1,8 +1,24 @@
-const $addEntryButton = document.querySelector('#add-entry-button');
-const $pageContainer = document.querySelector('.page-container');
+// const $addEntryButton = document.querySelector('#add-entry-button');
+// const $pageContainer = document.querySelector('.page-container');
 
-$addEntryButton.addEventListener('click', openModal);
+// const $timeInput = document.querySelector('.time-input');
+// const $notesInput = document.querySelector('.notes-input');
+// const $dayDropdown = document.querySelector('.day-dropdown');
+// const $form = document.querySelector('.form');
 
-function openModal(event) {
-  $pageContainer.classList.remove('hidden');
-}
+// $addEntryButton.addEventListener('click', openModal);
+
+// function openModal(event) {
+//   $pageContainer.classList.remove('hidden');
+// }
+
+// // $form.addEventListener('submit', () => {
+// //   const entries = {
+// //     day: $dayDropdown,
+// //     time: $timeInput,
+// //     notes: $notesInput,
+// //     id: 'data.nextId'
+// //   };
+
+// //   data.nextId++;
+// // });
