@@ -44,28 +44,35 @@ $form.addEventListener('submit', () => {
 
 });
 
-const $daysOfWeek = document.querySelectorAll('.days-of-the-week');
+// const $daysOfWeek = document.querySelectorAll('.days-of-the-week');
 const $scheduleText = document.querySelector('.scheduled-events-text');
 
 $days.addEventListener('click', function (event) {
   if (event.target.matches('.days-of-the-week')) {
-    for (let i = 0; i < $daysOfWeek.length; i++) {
-      if (event.target.getAttribute('data-view') === 'sun-view') {
-        $scheduleText.textContent = 'Scheduled Events for Sunday';
-      } else if (event.target.getAttribute('data-view') === 'mon-view') {
-        $scheduleText.textContent = 'Scheduled Events for Monday';
-      } else if (event.target.getAttribute('data-view') === 'tue-view') {
-        $scheduleText.textContent = 'Scheduled Events for Tuesday';
-      } else if (event.target.getAttribute('data-view') === 'wed-view') {
-        $scheduleText.textContent = 'Scheduled Events for Wednesday';
-      } else if (event.target.getAttribute('data-view') === 'thu-view') {
-        $scheduleText.textContent = 'Scheduled Events for Thursday';
-      } else if (event.target.getAttribute('data-view') === 'fri-view') {
-        $scheduleText.textContent = 'Scheduled Events for Friday';
-      } else if (event.target.getAttribute('data-view') === 'sat-view') {
-        $scheduleText.textContent = 'Scheduled Events for Saturday';
-      }
+    // for (let i = 0; i < $daysOfWeek.length; i++) {
+    if (event.target.getAttribute('data-view') === 'sun-view') {
+      $scheduleText.textContent = 'Scheduled Events for Sunday';
+      displayDayEntries('sunday');
+    } else if (event.target.getAttribute('data-view') === 'mon-view') {
+      $scheduleText.textContent = 'Scheduled Events for Monday';
+      displayDayEntries('monday');
+    } else if (event.target.getAttribute('data-view') === 'tue-view') {
+      $scheduleText.textContent = 'Scheduled Events for Tuesday';
+      displayDayEntries('tuesday');
+    } else if (event.target.getAttribute('data-view') === 'wed-view') {
+      $scheduleText.textContent = 'Scheduled Events for Wednesday';
+      displayDayEntries('wednesday');
+    } else if (event.target.getAttribute('data-view') === 'thu-view') {
+      $scheduleText.textContent = 'Scheduled Events for Thursday';
+      displayDayEntries('thursday');
+    } else if (event.target.getAttribute('data-view') === 'fri-view') {
+      $scheduleText.textContent = 'Scheduled Events for Friday';
+      displayDayEntries('friday');
+    } else if (event.target.getAttribute('data-view') === 'sat-view') {
+      $scheduleText.textContent = 'Scheduled Events for Saturday';
+      displayDayEntries('saturday');
     }
+    // }
   }
 });
 
@@ -76,12 +83,22 @@ function renderEntry(entry) {
   const $tdTime = document.createElement('td');
   const $tdDescription = document.createElement('td');
 
+  $tr.setAttribute('class', entry.day);
+
   $tdTime.textContent = entry.time;
   $tdDescription.textContent = entry.notes;
 
   $tBody.appendChild($tr);
   $tr.append($tdTime, $tdDescription);
 
+}
+
+function displayDayEntries(day) {
+  for (let i = 0; i < data.entries.length; i++) {
+    if (data.entries[i].day === day) {
+      renderEntry(data.entries[i]);
+    }
+  }
 }
 
 document.addEventListener('DOMContentLoaded', () => {
