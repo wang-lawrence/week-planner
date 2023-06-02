@@ -61,11 +61,23 @@ $days.addEventListener('click', function (event) {
   }
 });
 
+const $tBody = document.querySelector('tbody');
+
 function renderEntry(entry) {
   const $tr = document.createElement('tr');
   const $tdTime = document.createElement('td');
-  const $tdDescription = document.createAttribute('td');
+  const $tdDescription = document.createElement('td');
 
-  $tdTime.value = entry.time;
-  $tdDescription.value = entry.notes;
+  $tdTime.textContent = entry.time;
+  $tdDescription.textContent = entry.notes;
+
+  $tBody.appendChild($tr);
+  $tr.append($tdTime, $tdDescription);
+
 }
+
+document.addEventListener('DOMContentLoaded', () => {
+  for (let i = 0; i < data.entries.length; i++) {
+    renderEntry(data.entries[i]);
+  }
+});
