@@ -30,6 +30,7 @@ $form.addEventListener('submit', () => {
   data.entries.unshift(newEntries);
   const jsonData = JSON.stringify(data);
   localStorage.setItem('javascript-local-storage', jsonData);
+  renderEntry(newEntries);
   data.nextId++;
   $pageContainer.classList.add('hidden');
 
@@ -41,22 +42,30 @@ const $scheduleText = document.querySelector('.scheduled-events-text');
 $days.addEventListener('click', function (event) {
   if (event.target.matches('.days-of-the-week')) {
     for (let i = 0; i < $daysOfWeek.length; i++) {
-      if ($daysOfWeek[i].getAttribute('data-view') === 'sun-view') {
+      if (event.target.getAttribute('data-view') === 'sun-view') {
         $scheduleText.textContent = 'Scheduled Events for Sunday';
-      } else if ($daysOfWeek[i].getAttribute('data-view') === 'mon-view') {
+      } else if (event.target.getAttribute('data-view') === 'mon-view') {
         $scheduleText.textContent = 'Scheduled Events for Monday';
-      } else if ($daysOfWeek[i].getAttribute('data-view') === 'tue-view') {
+      } else if (event.target.getAttribute('data-view') === 'tue-view') {
         $scheduleText.textContent = 'Scheduled Events for Tuesday';
-      } else if ($daysOfWeek[i].getAttribute('data-view') === 'wed-view') {
+      } else if (event.target.getAttribute('data-view') === 'wed-view') {
         $scheduleText.textContent = 'Scheduled Events for Wednesday';
-      } else if ($daysOfWeek[i].getAttribute('data-view') === 'thu-view') {
+      } else if (event.target.getAttribute('data-view') === 'thu-view') {
         $scheduleText.textContent = 'Scheduled Events for Thursday';
-      } else if ($daysOfWeek[i].getAttribute('data-view') === 'fri-view') {
+      } else if (event.target.getAttribute('data-view') === 'fri-view') {
         $scheduleText.textContent = 'Scheduled Events for Friday';
-      } else if ($daysOfWeek[i].getAttribute('data-view') === 'sat-view') {
+      } else if (event.target.getAttribute('data-view') === 'sat-view') {
         $scheduleText.textContent = 'Scheduled Events for Saturday';
-      } else {
-        break;
       }
     }
-);
+  }
+});
+
+function renderEntry(entry) {
+  const $tr = document.createElement('tr');
+  const $tdTime = document.createElement('td');
+  const $tdDescription = document.createAttribute('td');
+
+  $tdTime.value = entry.time;
+  $tdDescription.value = entry.notes;
+}
