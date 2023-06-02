@@ -13,15 +13,34 @@
 <body>
   <div class="page-container">
     <div class="modal hidden">
-      <h2>Would you like to take the survey?</h2>
-      <button class="close-modal-button">NO</button>
+      <div>
+        <h2>Add Entry</h2>
+      </div>
+      <div>
+        <label>
+          <select>
+            <option value="sunday">Sunday</option>
+            <option value="monday">Monday</option>
+            <option value="tuesday">Tuesday</option>
+            <option value="wednesday">Wednesday</option>
+            <option value="thursday">Thursday</option>
+            <option value="friday">Friday</option>
+            <option value="saturday">Saturday</option>
+          </select>
+        </label>
+        <label>
+          <input type="time" min="01:00" max="12:00"/>
+        </label>
+      </div>
+      <div>
+        <textarea placeholder="Description"></textarea>
+      </div>
+      <button type="submit" class="close-modal-button">Submit</button>
     </div>
-
     <div class="overlay hidden"></div>
-    <section>
-      <button class="open-modal-button">Open Modal</button>
-    </section>
   </div>
+
+
   <div class="container">
     <div class="row justify-center">
       <h1>Weekly Planner</h1>
