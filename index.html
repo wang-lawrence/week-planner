@@ -5,37 +5,41 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Week Planner</title>
   <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap"
+    rel="stylesheet">
 </head>
 <body>
   <div class="container">
     <div class="row justify-center">
       <h1>Weekly Planner</h1>
     </div>
-    <div class="row justify-space-around align-center" id="days">
-      <div>
+    <div class="row justify-space-around" id="days">
+      <div class="days-of-the-week">
         <a>Sunday</a>
       </div>
-      <div>
+      <div class="days-of-the-week">
         <a>Monday</a>
       </div>
-      <div>
+      <div class="days-of-the-week">
         <a>Tuesday</a>
       </div>
-      <div>
+      <div class="days-of-the-week">
         <a>Wednesday</a>
       </div>
-      <div>
+      <div class="days-of-the-week">
         <a>Thursday</a>
       </div>
-      <div>
+      <div class="days-of-the-week">
         <a>Friday</a>
       </div>
-      <div>
+      <div class="days-of-the-week">
         <a>Saturday</a>
       </div>
     </div>
     <div class="row justify-center">
-      <button type="button">Add Entry</button>
+      <button type="button" id="add-entry-button">Add Entry</button>
     </div>
   </div>
   <script src="main.js"></script>

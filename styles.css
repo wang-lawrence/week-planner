@@ -2,6 +2,10 @@
   box-sizing: border-box;
 }
 
+body {
+  font-family: Montserrat, sans-serif;
+}
+
 .container {
   height: 100vh;
   max-width: 900px;
@@ -26,6 +30,16 @@
 
 #days > div {
   border: 1px solid black;
-  width: 5rem;
-  height: 3rem;
+  width: 7rem;
+  height: 5rem;
+}
+
+.days-of-the-week {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#add-entry-button {
+  margin-top: 2rem;
 }
