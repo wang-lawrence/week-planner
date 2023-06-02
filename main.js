@@ -9,11 +9,21 @@ const $form = document.querySelector('.form');
 
 $addEntryButton.addEventListener('click', openModal);
 
-const data = {
+let data = {
   editing: null,
   entries: [],
   nextId: 0
 };
+
+const previousData = localStorage.getItem('javascript-local-storage');
+if (previousData !== null) {
+  data = JSON.parse(previousData);
+}
+
+window.addEventListener('beforeunload', function (event) {
+  const jsonData = JSON.stringify(data);
+  localStorage.setItem('javascript-local-storage', jsonData);
+});
 
 function openModal(event) {
   $pageContainer.classList.remove('hidden');
@@ -27,9 +37,7 @@ $form.addEventListener('submit', () => {
     notes: $notesInput.value,
     id: data.nextId
   };
-  data.entries.unshift(newEntries);
-  const jsonData = JSON.stringify(data);
-  localStorage.setItem('javascript-local-storage', jsonData);
+  data.entries.push(newEntries);
   renderEntry(newEntries);
   data.nextId++;
   $pageContainer.classList.add('hidden');
