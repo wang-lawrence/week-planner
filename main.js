@@ -97,6 +97,8 @@ function displayDayEntries(day) {
   for (let i = 0; i < data.entries.length; i++) {
     if (data.entries[i].day === day) {
       renderEntry(data.entries[i]);
+    } else {
+
     }
   }
 }
