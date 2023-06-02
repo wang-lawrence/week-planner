@@ -1,0 +1,31 @@
+* {
+  box-sizing: border-box;
+}
+
+.container {
+  height: 100vh;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.row {
+  display: flex;
+}
+
+.justify-center {
+  justify-content: center;
+}
+
+.justify-space-around {
+  justify-content: space-around;
+}
+
+.align-center {
+  align-items: center;
+}
+
+#days > div {
+  border: 1px solid black;
+  width: 5rem;
+  height: 3rem;
+}
