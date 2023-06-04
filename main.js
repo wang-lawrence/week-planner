@@ -12,11 +12,11 @@ $addEntryButton.addEventListener('click', openModal);
 let data = {
   editing: null,
   entries: [],
-  nextId: 0
+  nextId: 1
 };
 
 const previousData = localStorage.getItem('javascript-local-storage');
-if (previousData !== null) {
+if (previousData != null) {
   data = JSON.parse(previousData);
 }
 
@@ -31,19 +31,44 @@ function openModal(event) {
 
 $form.addEventListener('submit', () => {
   event.preventDefault();
-  const newEntries = {
-    day: $dayDropdown.value,
-    time: $timeInput.value,
-    notes: $notesInput.value,
-    id: data.nextId
-  };
-  data.entries.push(newEntries);
-  data.nextId++;
+
+  if (data.editing == null) {
+    const newEntries = {
+      day: $dayDropdown.value,
+      time: $timeInput.value,
+      notes: $notesInput.value,
+      id: data.nextId
+    };
+    data.entries.push(newEntries);
+    data.nextId++;
+    $scheduleText.textContent = 'Scheduled Events for ' + $dayDropdown.value.toUpperCase();
+    removeChildren($tBody);
+    displayDayEntries($dayDropdown.value.toLowerCase());
+  } else {
+    const editEntryId = data.editing.id;
+    for (let i = 0; i < data.entries.length; i++) {
+      if (editEntryId === data.entries[i].id) {
+        const editEntryObjIndex = i;
+        const editEntryObj = {
+          day: $dayDropdown.value,
+          time: $timeInput.value,
+          notes: $notesInput.value,
+          id: data.editing.id
+        };
+        data.entries.splice(editEntryObjIndex, 1, editEntryObj);
+        break;
+      }
+    }
+    $scheduleText.textContent = 'Scheduled Events for ' + $dayDropdown.value.toUpperCase();
+    removeChildren($tBody);
+    displayDayEntries($dayDropdown.value.toLowerCase());
+    data.editing = null;
+    $form.reset();
+  }
   $pageContainer.classList.add('hidden');
 
 });
 
-// const $daysOfWeek = document.querySelectorAll('.days-of-the-week');
 const $scheduleText = document.querySelector('.scheduled-events-text');
 
 $days.addEventListener('click', function (event) {
@@ -83,20 +108,24 @@ $days.addEventListener('click', function (event) {
 });
 
 const $tBody = document.querySelector('tbody');
-// const $tChild = $tBody.children;
 
 function renderEntry(entry) {
   const $tr = document.createElement('tr');
   const $tdTime = document.createElement('td');
   const $tdDescription = document.createElement('td');
+  const $tdUpdate = document.createElement('td');
+  const $updateButton = document.createElement('button');
 
   $tr.setAttribute('class', entry.day);
+  $updateButton.setAttribute('data-entry-id', entry.id);
+  $updateButton.textContent = 'Update';
 
   $tdTime.textContent = entry.time;
   $tdDescription.textContent = entry.notes;
 
   $tBody.appendChild($tr);
-  $tr.append($tdTime, $tdDescription);
+  $tr.append($tdTime, $tdDescription, $tdUpdate);
+  $tdUpdate.append($updateButton);
 
 }
 
@@ -109,13 +138,30 @@ function displayDayEntries(day) {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  for (let i = 0; i < data.entries.length; i++) {
-    renderEntry(data.entries[i]);
-  }
+  // for (let i = 0; i < data.entries.length; i++) {
+  //   renderEntry(data.entries[i]);
+  // }
+  $scheduleText.textContent = 'Scheduled Events for Monday';
+  displayDayEntries('monday');
 });
 
 function removeChildren(parent) {
   while (parent.firstChild) {
     parent.removeChild(parent.firstChild);
   }
+}
+
+$tBody.addEventListener('click', editEntry);
+
+function editEntry(event) {
+  const editEntryId = event.target.getAttribute('data-entry-id');
+  for (let i = 0; i < data.entries.length; i++) {
+    if (+editEntryId === data.entries[i].id) {
+      data.editing = data.entries[i];
+      $dayDropdown.value = data.editing.day;
+      $timeInput.value = data.editing.time;
+      $notesInput.value = data.editing.notes;
+    }
+  }
+  $pageContainer.classList.remove('hidden');
 }
