@@ -44,6 +44,7 @@ $form.addEventListener('submit', () => {
     $scheduleText.textContent = 'Scheduled Events for ' + $dayDropdown.value.toUpperCase();
     removeChildren($tBody);
     displayDayEntries($dayDropdown.value.toLowerCase());
+    $form.reset();
   } else {
     const editEntryId = data.editing.id;
     for (let i = 0; i < data.entries.length; i++) {
