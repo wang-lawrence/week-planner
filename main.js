@@ -115,17 +115,23 @@ function renderEntry(entry) {
   const $tdDescription = document.createElement('td');
   const $tdUpdate = document.createElement('td');
   const $updateButton = document.createElement('button');
+  const $deleteButton = document.createElement('button');
 
   $tr.setAttribute('class', entry.day);
   $updateButton.setAttribute('data-entry-id', entry.id);
+  $deleteButton.setAttribute('data-entry-id', entry.id);
   $updateButton.textContent = 'Update';
+  $deleteButton.textContent = 'Delete';
+
+  $updateButton.addEventListener('click', editEntry);
+  $deleteButton.addEventListener('click', deleteEntry);
 
   $tdTime.textContent = entry.time;
   $tdDescription.textContent = entry.notes;
 
   $tBody.appendChild($tr);
   $tr.append($tdTime, $tdDescription, $tdUpdate);
-  $tdUpdate.append($updateButton);
+  $tdUpdate.append($updateButton, $deleteButton);
 
 }
 
@@ -151,8 +157,6 @@ function removeChildren(parent) {
   }
 }
 
-$tBody.addEventListener('click', editEntry);
-
 function editEntry(event) {
   const editEntryId = event.target.getAttribute('data-entry-id');
   for (let i = 0; i < data.entries.length; i++) {
@@ -164,4 +168,17 @@ function editEntry(event) {
     }
   }
   $pageContainer.classList.remove('hidden');
+}
+
+function deleteEntry(event) {
+  const editEntryId = event.target.getAttribute('data-entry-id');
+  const $entry = document.querySelector(`[data-entry-id = "${editEntryId}"]`);
+  // console.log(`[data-entry-id = "${editEntryId}"]`);
+  // console.log($entry);
+  for (let i = 0; i < data.entries.length; i++) {
+    if (+editEntryId === data.entries[i].id) {
+      data.entries.splice(i, 1);
+    }
+  }
+  $entry.closest('tr').remove();
 }
